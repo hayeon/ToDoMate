@@ -56,7 +56,7 @@ import { theme } from "./theme";
         placeholder={
           headerToggle === "work"
             ? "오늘의 할 일을 정리하세요"
-            : "어디로 떠나고 싶으세요?"
+            : "어디로 떠나고 싶으세요??"
         }
         style={{ ...styles.input }}
       />
