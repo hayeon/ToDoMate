@@ -9,17 +9,27 @@ import {
 } from "react-native";
 import { theme } from "./theme";
 
- function App() {
+function App() {
   const [headerToggle, setHeaderToggle] = useState("work");
   const work = () => setHeaderToggle("work");
   const travel = () => setHeaderToggle("travel");
   const [toDo, setTodo] = useState("");
+  const [toDoList, setTodoList] = useState({}); //hasmap을 만들기 위해 배열이 아닌 obj
+  const onChange = (e) => setTodo(e);
   const onSubmit = () => {
-    alert(toDo);
-  }
+    if (toDo === "") {
+      //toDo가 공백이면
+      return;
+    }
+    const newToDoList = Object.assign({}, toDoList, {
+      [Date.now()]: { toDo, toggle: headerToggle },
+    });
+    setTodoList(newToDoList);
+    setTodo(""); //toDo가 공백이 아니면
+  };
+  console.log(toDoList);
 
-  const onChange = (e) => console.log(e); 
-
+ 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -47,12 +57,11 @@ import { theme } from "./theme";
           </Text>
         </TouchableOpacity>
       </View>
-      <TextInput 
+      <TextInput
         onSubmitEditing={onSubmit}
+        value={toDo}
         onChangeText={onChange}
         returnKeyType="done"
-        value={toDo}
-        multiline
         placeholder={
           headerToggle === "work"
             ? "오늘의 할 일을 정리하세요"
